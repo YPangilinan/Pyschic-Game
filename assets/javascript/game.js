@@ -17,6 +17,8 @@ var guessesLeft=10;
 
 document.onkeyup = function(event){
     var userGuess = event.key;
+    guesses.push(userGuess);
+    guessesLeft--;
 
 console.log(userGuess);
 
@@ -27,28 +29,37 @@ var computerGuess = alphabet[Math.floor(Math.random() * alphabet.length)];
 console.log(computerGuess);
 
 //if the letters match, they win
-
 if (userGuess === computerGuess){
     alert("you guessed my letter!");
     wins++;
+    reset();
+}
 
+if (guessesLeft == 0){
+    losses++;
+    alert("aw darn! try again!");
+    reset ();
 }
 
 //if the letters don't match they lose
-else {
-    guesses.push(userGuess);
-    guessesLeft--;
-}
+
 console.log(guessesLeft);
 console.log(guesses);
 
 //display on the screen what letters they have already guessed
 
 //update guesses left whenever they press a key
+//dom manipulation
+document.getElementById("wins").innerHTML = " " + wins;
+document.getElementById("losses").innerHTML = " " + losses;
+document.getElementById("guessesLeft").innerHTML = " " + guessesLeft;
+document.getElementById("guesses").innerHTML = "   " + guesses;
 }
 //reset game when there is a win or a loss
 
-//dom manipulation
-document.getElementById("wins").innerHTML = " " + wins;
-document.getElementById("guessesLeft").innerHTML = " " + guessesLeft;
-document.getElementById("guesses").innerHTML = " " + guesses;
+function reset(){
+    guessesLeft = 10;
+    guesses = [];
+    var computerGuess = alphabet[Math.floor(Math.random() * alphabet.length)];
+}
+
